@@ -1,0 +1,54 @@
+logging:
+  level:
+    org.springframework.web.cors: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8036/eureka/
+
+server:
+  port: 8035
+spring:
+  application:
+    name: gateway-microservice  # Уникальное имя сервиса
+  cloud:
+    gateway:       
+      routes:
+
+        - id: auth-service
+          uri: http://auth-microservice:8095
+          predicates:
+            - Path=/api/auth/**
+
+        - id: profile-service
+          uri: http://profile-microservice:8090
+          predicates:
+            - Path=/api/profile/**
+
+        - id: tariff-service
+          uri: http://tariff-microservice:8085
+          predicates:
+            - Path=/api/tariff/**
+
+        - id: admin-service
+          uri: http://admin-microservice:8020
+          predicates:
+            - Path=/api/administration/**
+
+        - id: notification-service
+          uri: http://mail-microservice:8087
+          predicates:
+            - Path=/api/notification/**,/api/public-notification/**
+
+        - id: minio-service
+          uri: http://minio-microservice:8030
+          predicates:
+            - Path=/api/files/**
+
+        - id: expertise-service
+          uri: http://expertise-microservice:8021
+          predicates:
+            - Path=/api/expertise/**

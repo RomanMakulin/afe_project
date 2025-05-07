@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Roman Makulin
+      changes:
+        - sqlFile:
+            path: classpath:db/migrations/001_init.sql
+
+  - changeSet:
+      id: 2
+      author: Roman Makulin
+      changes:
+        - sqlFile:
+            path: classpath:db/migrations/002_alter_question_add_column_order.sql
+
+  - changeSet:
+      id: 3
+      author: Roman Makulin
+      changes:
+        - sqlFile:
+            path: classpath:db/migrations/003_alter_expertise_createdat.sql

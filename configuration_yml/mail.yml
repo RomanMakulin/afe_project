@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: mail-microservice  
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8036/eureka/
+
+server:
+  port: 8087
+
+# MAIL
+mail:
+  host: smtp.yandex.ru
+  port: 587
+  protocol: smtp
+  username: expgen@aeksi.ru
+  password: pslesajfgqacxghm
+  properties:
+    mail.smtp.auth: true
+    mail.smtp.starttls.enable: true 
+    mail.debug: true
+

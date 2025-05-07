@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: minio-microservice  
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8036/eureka/
+
+server:
+  port: 8030
+
+minio:
+  endpoint: http://10.2.1.14:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  buckets:
+    avatars: user-avatars
+    files: user-files
+    templates: user-templates
+    passports: user-passports
+    diploms: user-diploms
+    expertise-answers: expertise-answers

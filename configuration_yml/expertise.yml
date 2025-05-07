@@ -1,0 +1,33 @@
+server:
+  port: 8021
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8036/eureka/
+
+spring:
+  application:
+    name: expertise-microservice
+  datasource:
+    url: jdbc:postgresql://10.2.1.10:5432/afe_expertise
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+gigachat:
+  api:
+    body-scope: scope=GIGACHAT_API_PERS
+    token-url: https://ngw.devices.sberbank.ru:9443/api/v2/oauth
+    auth-header: Bearer MDM2MjYzMWEtZmI1MS00NGZkLTk2MzQtYmY3YzE3ODZlZmZhOmI3YzQ3NjFlLTdkM2MtNDEyYi04OWQ4LTM0MzRhZTNkYWVlZA==
+    client-id: b6874da0-bf06-410b-a150-fd5f9164a0b2
+    url: https://gigachat.devices.sberbank.ru/api/v1/chat/completions
+    key: MDM2MjYzMWEtZmI1MS00NGZkLTk2MzQtYmY3YzE3ODZlZmZhOmI3YzQ3NjFlLTdkM2MtNDEyYi04OWQ4LTM0MzRhZTNkYWVlZA==
+

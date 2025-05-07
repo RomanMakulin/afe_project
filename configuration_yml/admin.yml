@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: admin-microservice  
+server:
+  port: 8020
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8036/eureka/

@@ -1,0 +1,93 @@
+app:
+  # Определение базовых URL сервисов
+  gateway-url: http://gateway-service:8035
+  backend-url: http://10.2.1.8:8035
+  
+  frontend-url-client: http://10.2.0.6:8010
+  frontend-url-admin: http://10.2.0.6:8011
+
+  # Конфигурация CORS: разрешённые источники берутся из свойств services
+  cors:
+    allowed-origins:
+      - ${app.frontend-url-client}
+      - ${app.frontend-url-admin}
+      - ${app.gateway-url}
+      - http://localhost:8011
+      - http://localhost:8010
+
+  # Определение URL эндпоинтов для различных операций
+  paths:
+    notification:
+      send-mail: ${app.gateway-url}/api/notification/send
+      public-send-mail: ${app.gateway-url}/api/public-notification/send
+
+    auth:
+      verification-request: ${app.backend-url}/api/auth/verify-email
+      register: ${app.gateway-url}/api/auth/register
+      login: ${app.gateway-url}/api/auth/login
+      reset-password: ${app.gateway-url}/api/auth/reset-password
+
+    frontend:
+      recovery-request: ${app.frontend-url-client}/password_recovery
+      login: ${app.frontend-url-client}/login
+
+    profile:
+      get-all-profiles: ${app.gateway-url}/api/profile
+      get-unverified-profiles: ${app.gateway-url}/api/profile/unverified
+      verify-profile: ${app.gateway-url}/api/profile/verify
+      cancel-validation: ${app.gateway-url}/api/profile/cancel-validation
+      get-profile: ${app.gateway-url}/api/profile
+      update-plan: ${app.gateway-url}/api/profile/update-plan
+      get-by-profile-id: ${app.gateway-url}/api/profile/get-by-profile-id
+      get-by-user-id: ${app.gateway-url}/api/profile/get-by-user-id
+      delete-plan: ${app.gateway-url}/api/profile/delete-plan
+      create-empty: ${app.gateway-url}/api/profile/create-empty
+      get-files-id-list: ${app.gateway-url}/api/profile/get-files-id-list
+
+    minio:    
+      upload-file-by-params: ${app.gateway-url}/api/files/upload-file-by-params
+      upload-expertise-answer-photo: ${app.gateway-url}/api/files/upload-expertise-answer-photo
+
+      get-file-by-params: ${app.gateway-url}/api/files/get-file-by-params
+      get-expertise-answer-photo: ${app.gateway-url}/api/files/get-expertise-answer-photo
+      get-expertise-file: ${app.gateway-url}/api/files/get-expertise-file
+      get-expertise-answer-photo-file: ${app.gateway-url}/api/files/get-expertise-answer-photo-file
+      
+      delete-file-by-params: ${app.gateway-url}/api/files/delete-file-by-params
+      delete-expertise-answer-photos: ${app.gateway-url}/api/files/delete-expertise-answer-photos
+      delete-expertise-answer-photo: ${app.gateway-url}/api/files/delete-expertise-answer-photo
+
+# Настройки загрузки файлов
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB       # Максимальный размер загружаемого файла
+      max-request-size: 100MB   # Максимальный размер запроса с файлами
+
+  # Настройки базы данных
+  datasource:
+    url: jdbc:postgresql://10.2.1.10:5432/afe_project  # URL базы данных
+    username: postgres                                # Имя пользователя
+    password: postgres                                       # Пароль (следует зашифровать)
+    driver-class-name: org.postgresql.Driver          # Класс драйвера PostgreSQL
+  jpa:
+    hibernate:
+      ddl-auto: none                                  # Никакие изменения структуры не выполняются автоматически
+    show-sql: true                                   # Показывать SQL-запросы в логах
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # Диалект Hibernate для PostgreSQL
+
+  # Настройки безопасности
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://10.2.1.16:8080/realms/afe             # URI эмитента токенов
+          jwk-set-uri: http://10.2.1.16:8080/realms/afe/protocol/openid-connect/certs  # URI для получения JWK
+
+# Логирование
+logging:
+  level:
+    sf4g: DEBUG  # Включает DEBUG-логи только для sf4g.
+

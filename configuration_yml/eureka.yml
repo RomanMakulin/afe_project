@@ -1,0 +1,8 @@
+server:
+  port: 8036
+eureka:
+  client:
+    register-with-eureka: false  # Сервер не регистрируется сам в себе
+    fetch-registry: false       # Не загружает реестр
+    service-url:
+      defaultZone: http://eureka-service:8036/eureka/

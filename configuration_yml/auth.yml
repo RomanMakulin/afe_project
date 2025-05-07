@@ -1,0 +1,35 @@
+logging:
+  level:
+    org.springframework.web.cors: DEBUG
+
+spring:
+  application:
+    name: auth-microservice  
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8036/eureka/
+
+server:
+  port: 8095
+
+# KEYCLOAK CONFIG
+keycloak:
+  auth-server-url: http://10.2.1.16:8080/realms/afe
+  realm: afe
+  resource: afe_app
+  credentials:
+    secret: tJ67hn5eVpkZ3IM3Pas7snKytGKfalZj
+  bearer-only: true
+  use-resource-role-mappings: true
+  main:
+    server-url: http://10.2.1.16:8080
+    realm: master
+    clientId: admin-cli
+    username: admin
+    password: AdminPass
+  oauth:
+    redirect-uri: todo
+  
+
